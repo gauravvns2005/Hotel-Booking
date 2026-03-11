@@ -22,16 +22,10 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://your-frontend-name.vercel.app"
-    ],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "*",
+  credentials: true
+}));
 
 
 app.use(express.json());

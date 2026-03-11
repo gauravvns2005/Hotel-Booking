@@ -1,5 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {
+  FaMapMarkerAlt,
+  FaCalendarAlt,
+  FaUserFriends,
+  FaBed,
+} from "react-icons/fa";
 import API from "../../services/api";
 import "./Booking.css";
 
@@ -25,23 +31,34 @@ function Booking() {
         setError("Could not load room details. Please go back and try again.");
       }
     };
+
     fetchRoom();
   }, [roomId]);
 
   const nights =
     checkIn && checkOut
-      ? Math.max(0, Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24)))
+      ? Math.max(
+          0,
+          Math.ceil(
+            (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24),
+          ),
+        )
       : 0;
 
   const totalPrice = nights * (room?.price || 0);
 
   const createBooking = async () => {
-    if (!checkIn || !checkOut) return setError("Please select check-in and check-out dates.");
+    if (!checkIn || !checkOut)
+      return setError("Please select check-in and check-out dates.");
+
     if (nights <= 0) return setError("Check-out must be after check-in.");
-    if (guests > room.maxGuests) return setError(`Max ${room.maxGuests} guests allowed.`);
+
+    if (guests > room.maxGuests)
+      return setError(`Max ${room.maxGuests} guests allowed.`);
 
     setLoading(true);
     setError("");
+
     try {
       const res = await API.post("/bookings", {
         hotel: room.hotel._id,
@@ -50,14 +67,17 @@ function Booking() {
         checkOut,
         guests,
       });
+
       navigate(`/payment/${res.data._id}`);
     } catch (err) {
       setError(err.response?.data?.message || "Booking failed. Try again.");
     }
+
     setLoading(false);
   };
 
-  if (!room && !error) return <div className="loading-screen">Loading room details...</div>;
+  if (!room && !error)
+    return <div className="loading-screen">Loading room details...</div>;
 
   return (
     <div className="booking-page page-wrapper">
@@ -68,12 +88,16 @@ function Booking() {
 
         {room && (
           <div className="booking-layout">
-            {/* Booking Form */}
+            {/* FORM */}
+
             <div className="booking-form-card">
               <h2>Select Dates & Guests</h2>
 
               <div className="form-group">
-                <label>Check-In Date</label>
+                <label>
+                  <FaCalendarAlt /> Check-In Date
+                </label>
+
                 <input
                   className="form-control"
                   type="date"
@@ -84,7 +108,10 @@ function Booking() {
               </div>
 
               <div className="form-group">
-                <label>Check-Out Date</label>
+                <label>
+                  <FaCalendarAlt /> Check-Out Date
+                </label>
+
                 <input
                   className="form-control"
                   type="date"
@@ -95,7 +122,10 @@ function Booking() {
               </div>
 
               <div className="form-group">
-                <label>Number of Guests (Max: {room.maxGuests})</label>
+                <label>
+                  <FaUserFriends /> Guests (Max: {room.maxGuests})
+                </label>
+
                 <input
                   className="form-control"
                   type="number"
@@ -108,7 +138,11 @@ function Booking() {
 
               <button
                 className="btn btn-primary"
-                style={{ width: "100%", justifyContent: "center", marginTop: "0.5rem" }}
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  marginTop: "10px",
+                }}
                 onClick={createBooking}
                 disabled={loading}
               >
@@ -116,30 +150,46 @@ function Booking() {
               </button>
             </div>
 
-            {/* Summary */}
+            {/* SUMMARY */}
+
             <div className="booking-summary-card">
               <h3>Booking Summary</h3>
+
               <div className="summary-hotel">
-                <p className="summary-hotel-name">{room.hotel?.name}</p>
-                <p className="summary-location">📍 {room.hotel?.city}</p>
+                <p className="summary-hotel-name">
+                  <FaBed /> {room.hotel?.name}
+                </p>
+
+                <p className="summary-location">
+                  <FaMapMarkerAlt /> {room.hotel?.city}
+                </p>
               </div>
 
               <div className="summary-divider" />
 
               <div className="summary-row">
                 <span>Room Type</span>
+
                 <span className="summary-val">{room.roomType}</span>
               </div>
+
               <div className="summary-row">
                 <span>Price per night</span>
-                <span className="summary-val">₹{room.price?.toLocaleString()}</span>
+
+                <span className="summary-val">
+                  ₹{room.price?.toLocaleString()}
+                </span>
               </div>
+
               <div className="summary-row">
                 <span>Nights</span>
+
                 <span className="summary-val">{nights || "—"}</span>
               </div>
+
               <div className="summary-row">
                 <span>Guests</span>
+
                 <span className="summary-val">{guests}</span>
               </div>
 
@@ -147,10 +197,15 @@ function Booking() {
 
               <div className="summary-total">
                 <span>Total</span>
-                <span className="total-price">₹{totalPrice.toLocaleString()}</span>
+
+                <span className="total-price">
+                  ₹{totalPrice.toLocaleString()}
+                </span>
               </div>
 
-              <p className="summary-note">* Final price after tax may vary at payment</p>
+              <p className="summary-note">
+                * Final price after tax may vary at payment
+              </p>
             </div>
           </div>
         )}

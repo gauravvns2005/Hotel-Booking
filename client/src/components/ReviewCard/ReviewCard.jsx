@@ -1,21 +1,28 @@
-import "./ReviewCard.css"
+import { FaStar, FaUser } from "react-icons/fa";
+import "./ReviewCard.css";
 
-function ReviewCard({review}){
+function ReviewCard({ review }) {
+  if (!review) return null;
 
- return(
+  return (
+    <div className="review-card">
+      <div className="review-header">
+        <div className="review-user">
+          <FaUser className="review-icon" />
 
-  <div className="review-card">
+          <span>{review.user?.name}</span>
+        </div>
 
-   <h4>{review.user.name}</h4>
+        <div className="review-rating">
+          <FaStar className="star" />
 
-   <p>⭐ {review.rating}</p>
+          {review.rating}
+        </div>
+      </div>
 
-   <p>{review.comment}</p>
-
-  </div>
-
- )
-
+      <p className="review-comment">{review.comment}</p>
+    </div>
+  );
 }
 
-export default ReviewCard
+export default ReviewCard;

@@ -1,136 +1,218 @@
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+.navbar{
+
+position:sticky;
+top:0;
+
+background:#fff;
+
+border-bottom:1px solid #e5e5e5;
+
+z-index:1000;
+
 }
 
-.navbar-inner {
-  display: flex;
-  align-items: center;
-  height: 70px;
-  gap: 2rem;
+
+/* INNER */
+
+.navbar-inner{
+
+display:flex;
+align-items:center;
+
+height:70px;
+
+gap:30px;
+
 }
 
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--primary-light);
-  letter-spacing: -0.5px;
-  flex-shrink: 0;
+
+/* LOGO */
+
+.navbar-logo{
+
+display:flex;
+align-items:center;
+
+gap:8px;
+
+font-size:20px;
+
+font-weight:700;
+
+color:#000;
+
 }
 
-.logo-icon { font-size: 1.6rem; }
 
-.navbar-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex: 1;
+/* LINKS */
+
+.navbar-links{
+
+display:flex;
+align-items:center;
+
+gap:24px;
+
+flex:1;
+
 }
 
-.navbar-links a {
-  color: var(--text-muted);
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color var(--transition);
-  position: relative;
+.navbar-links a{
+
+font-size:14px;
+
+font-weight:500;
+
+color:#666;
+
+transition:0.2s;
+
 }
 
-.navbar-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--primary);
-  transition: width var(--transition);
+.navbar-links a:hover{
+
+color:#000;
+
 }
 
-.navbar-links a:hover { color: var(--text); }
-.navbar-links a:hover::after { width: 100%; }
 
-.navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-left: auto;
+/* ACTIONS */
+
+.navbar-actions{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
 }
 
-.user-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #fff;
+
+/* USER */
+
+.user-avatar{
+
+width:34px;
+height:34px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#000;
+color:#fff;
+
+font-size:14px;
+
 }
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  margin-left: 0.5rem;
+
+/* LOGOUT */
+
+.logout-btn{
+
+background:#000;
+color:#fff;
+
+border:1px solid #000;
+
+padding:6px 12px;
+
+font-size:13px;
+
+cursor:pointer;
+
 }
 
-.bar {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--text);
-  transition: all var(--transition);
-  border-radius: 2px;
+.logout-btn:hover{
+
+background:#333;
+
 }
 
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  padding: 1rem 1.5rem 1.5rem;
-  border-top: 1px solid var(--border);
-  gap: 1rem;
-  background: var(--bg);
+
+/* MOBILE MENU ICON */
+
+.hamburger{
+
+display:none;
+
+font-size:24px;
+
+background:none;
+
+border:none;
+
+cursor:pointer;
+
 }
 
-.mobile-menu a {
-  color: var(--text-muted);
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border);
+
+/* MOBILE MENU */
+
+.mobile-menu{
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+padding:15px 20px;
+
+border-top:1px solid #e5e5e5;
+
+background:#fff;
+
 }
 
-.mobile-logout {
-  background: rgba(239,68,68,0.15);
-  color: #ef4444;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  width: fit-content;
+.mobile-menu a{
+
+font-size:14px;
+
+color:#444;
+
 }
 
-@media (max-width: 768px) {
-  .navbar-links { display: none; }
-  .hamburger { display: flex; }
-  .mobile-menu { display: flex; }
-  .navbar-actions .btn { 
-    display: none; 
-  }
-  .navbar-actions .user-avatar { display: flex; }
-  .navbar-actions button:not(.hamburger) { display: none; }
+.mobile-logout{
+
+background:#000;
+color:#fff;
+
+border:1px solid #000;
+
+padding:8px 12px;
+
+font-size:13px;
+
+width:120px;
+
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.navbar-links{
+
+display:none;
+
+}
+
+.hamburger{
+
+display:block;
+
+margin-left:auto;
+
+}
+
+.navbar-actions{
+
+display:none;
+
+}
+
 }

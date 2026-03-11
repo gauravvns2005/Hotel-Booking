@@ -1,0 +1,61 @@
+.booking-page {}
+
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
+  align-items: start;
+  max-width: 900px;
+}
+
+.booking-form-card, .booking-summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.booking-form-card h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.booking-summary-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.summary-hotel { margin-bottom: 1rem; }
+.summary-hotel-name { font-size: 1rem; font-weight: 700; }
+.summary-location { color: var(--text-muted); font-size: 0.85rem; }
+.summary-divider { height: 1px; background: var(--border); margin: 1rem 0; }
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+.summary-val { color: var(--text); font-weight: 500; }
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.total-price { font-size: 1.3rem; color: var(--primary-light); }
+
+.summary-note { font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
+
+@media (max-width: 768px) {
+  .booking-layout { grid-template-columns: 1fr; }
+}

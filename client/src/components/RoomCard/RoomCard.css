@@ -1,0 +1,23 @@
+.room-card{
+border:1px solid #ddd;
+display:flex;
+margin-top:20px;
+}
+
+.room-card img{
+width:200px;
+object-fit:cover;
+}
+
+.room-info{
+padding:20px;
+}
+
+.room-info button{
+margin-top:10px;
+background:#1e40af;
+color:white;
+border:none;
+padding:10px 15px;
+cursor:pointer;
+}

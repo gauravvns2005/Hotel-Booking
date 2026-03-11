@@ -1,0 +1,38 @@
+.admin-navbar {
+  height: 64px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.admin-navbar-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+}
+.admin-nav-logo {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary-light);
+}
+.admin-nav-logo span {
+  background: var(--primary);
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 0.4rem;
+}
+.admin-nav-right { display: flex; align-items: center; gap: 1rem; }
+.admin-user { display: flex; align-items: center; gap: 0.6rem; }
+.admin-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem; color: #fff;
+}
+.admin-name { font-size: 0.88rem; font-weight: 600; color: var(--text-muted); }

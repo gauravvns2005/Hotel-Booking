@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { FaHotel, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { AdminContext } from "../../context/AdminContext";
 import "./Navbar.css";
 
@@ -9,13 +10,24 @@ function AdminNavbar() {
   return (
     <header className="admin-navbar">
       <div className="admin-navbar-inner">
-        <Link to="/" className="admin-nav-logo">🏨 StayEase <span>Admin</span></Link>
+        <Link to="/" className="admin-nav-logo">
+          <FaHotel />
+          StayEase
+          <span>Admin</span>
+        </Link>
+
         {admin && (
           <div className="admin-nav-right">
             <div className="admin-user">
-              <div className="admin-avatar">{admin.name?.charAt(0)}</div>
+              <FaUserCircle className="admin-user-icon" />
+
               <span className="admin-name">{admin.name}</span>
             </div>
+
+            <button className="admin-logout-btn" onClick={adminLogout}>
+              <FaSignOutAlt />
+              Logout
+            </button>
           </div>
         )}
       </div>

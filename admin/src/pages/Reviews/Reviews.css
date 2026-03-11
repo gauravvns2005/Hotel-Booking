@@ -1,0 +1,65 @@
+.reviews-card {
+  overflow-x: auto;
+}
+
+/* empty message */
+
+.reviews-empty {
+  text-align: center;
+
+  padding: 40px 0;
+
+  color: #666;
+}
+
+/* user */
+
+.review-user {
+  font-weight: 600;
+
+  font-size: 14px;
+}
+
+/* hotel */
+
+.review-hotel {
+  font-size: 14px;
+}
+
+/* stars */
+
+.review-stars {
+  display: flex;
+
+  gap: 4px;
+}
+
+.review-star {
+  color: #000;
+
+  font-size: 14px;
+}
+
+/* comment */
+
+.review-comment {
+  max-width: 250px;
+
+  font-size: 13px;
+
+  color: #666;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+/* date */
+
+.review-date {
+  font-size: 12px;
+
+  color: #666;
+}

@@ -1,0 +1,41 @@
+.booking-filters {
+  display: flex;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.booking-card {
+  overflow-x: auto;
+}
+
+.booking-empty {
+  color: #666;
+
+  padding: 40px 0;
+
+  text-align: center;
+}
+
+/* guest info */
+
+.guest-name {
+  font-weight: 600;
+
+  font-size: 14px;
+}
+
+.guest-email {
+  font-size: 12px;
+
+  color: #666;
+}
+
+/* amount */
+
+.booking-amount {
+  font-weight: 700;
+
+  color: #000;
+}

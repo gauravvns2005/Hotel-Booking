@@ -1,14 +1,20 @@
 import { useContext, useEffect } from "react";
+import { FaTrash, FaUser } from "react-icons/fa";
 import { AdminContext } from "../../context/AdminContext";
 import API from "../../services/api";
+import "./Users.css";
 
 function Users() {
   const { users, fetchUsers } = useContext(AdminContext);
 
-  useEffect(() => { fetchUsers(); }, []);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const deleteUser = async (id) => {
-    if (!window.confirm("Delete this user? All their data will be removed.")) return;
+    if (!window.confirm("Delete this user? All their data will be removed."))
+      return;
+
     try {
       await API.delete(`/admin/users/${id}`);
       fetchUsers();
@@ -18,20 +24,28 @@ function Users() {
   };
 
   const getRoleBadge = (role) => {
-    if (role === "admin") return <span className="badge badge-danger">Admin</span>;
-    if (role === "hotelOwner") return <span className="badge badge-warning">Hotel Owner</span>;
+    if (role === "admin")
+      return <span className="badge badge-danger">Admin</span>;
+
+    if (role === "hotelOwner")
+      return <span className="badge badge-warning">Hotel Owner</span>;
+
     return <span className="badge badge-primary">User</span>;
   };
 
   return (
     <div>
       <div className="page-header">
-        <div><h1 className="page-title">Users</h1><p className="page-subtitle">{users.length} registered users</p></div>
+        <div>
+          <h1 className="page-title">Users</h1>
+
+          <p className="page-subtitle">{users.length} registered users</p>
+        </div>
       </div>
 
-      <div className="card" style={{ overflowX: "auto" }}>
+      <div className="card users-card">
         {users.length === 0 ? (
-          <p style={{ color: "var(--text-muted)", padding: "2rem 0", textAlign: "center" }}>No users yet.</p>
+          <p className="users-empty">No users yet.</p>
         ) : (
           <table className="admin-table">
             <thead>
@@ -44,26 +58,39 @@ function Users() {
                 <th>Actions</th>
               </tr>
             </thead>
+
             <tbody>
-              {users.map(u => (
+              {users.map((u) => (
                 <tr key={u._id}>
                   <td>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                      <div style={{ width: 32, height: 32, borderRadius: "50%", background: "linear-gradient(135deg, #6366f1, #4f46e5)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "0.85rem", flexShrink: 0 }}>
-                        {u.name?.charAt(0)}
-                      </div>
-                      <span style={{ fontWeight: 600 }}>{u.name}</span>
+                    <div className="user-info">
+                      <div className="user-avatar">{u.name?.charAt(0)}</div>
+
+                      <span className="user-name">{u.name}</span>
                     </div>
                   </td>
-                  <td style={{ color: "var(--text-muted)", fontSize: "0.88rem" }}>{u.email}</td>
-                  <td style={{ color: "var(--text-muted)", fontSize: "0.88rem" }}>{u.phone}</td>
+
+                  <td className="user-email">{u.email}</td>
+
+                  <td className="user-phone">{u.phone}</td>
+
                   <td>{getRoleBadge(u.role)}</td>
-                  <td style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
-                    {new Date(u.createdAt).toLocaleDateString("en-IN", { dateStyle: "medium" })}
+
+                  <td className="user-date">
+                    {new Date(u.createdAt).toLocaleDateString("en-IN", {
+                      dateStyle: "medium",
+                    })}
                   </td>
+
                   <td>
                     {u.role !== "admin" && (
-                      <button className="btn btn-sm btn-danger" onClick={() => deleteUser(u._id)}>Delete</button>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => deleteUser(u._id)}
+                      >
+                        <FaTrash />
+                        Delete
+                      </button>
                     )}
                   </td>
                 </tr>

@@ -1,0 +1,55 @@
+.hotels-card {
+  overflow-x: auto;
+}
+
+/* empty message */
+
+.hotels-empty {
+  text-align: center;
+
+  padding: 40px 0;
+
+  color: #666;
+}
+
+/* hotel info */
+
+.hotel-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.hotel-thumb {
+  width: 48px;
+
+  height: 36px;
+
+  object-fit: cover;
+}
+
+.hotel-name {
+  font-weight: 600;
+}
+
+/* price */
+
+.hotel-price {
+  font-weight: 600;
+
+  color: #000;
+}
+
+/* rating */
+
+.hotel-rating {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #000;
+}

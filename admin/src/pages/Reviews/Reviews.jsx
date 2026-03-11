@@ -1,9 +1,12 @@
 import { useContext, useEffect, useState } from "react";
+import { FaStar, FaTrash } from "react-icons/fa";
 import { AdminContext } from "../../context/AdminContext";
 import API from "../../services/api";
+import "./Reviews.css";
 
 function Reviews() {
   const { adminToken } = useContext(AdminContext);
+
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,31 +15,45 @@ function Reviews() {
       const res = await API.get("/admin/reviews");
       setReviews(res.data);
     } catch {}
+
     setLoading(false);
   };
 
-  useEffect(() => { fetchReviews(); }, []);
+  useEffect(() => {
+    fetchReviews();
+  }, []);
 
   const deleteReview = async (id) => {
     if (!window.confirm("Delete this review?")) return;
+
     try {
       await API.delete(`/admin/reviews/${id}`);
       fetchReviews();
     } catch {}
   };
 
-  const renderStars = (n) => "⭐".repeat(Math.min(n, 5));
+  const renderStars = (n) => {
+    return [...Array(Math.min(n, 5))].map((_, i) => (
+      <FaStar key={i} className="review-star" />
+    ));
+  };
 
   return (
     <div>
       <div className="page-header">
-        <div><h1 className="page-title">Reviews</h1><p className="page-subtitle">{reviews.length} total reviews</p></div>
+        <div>
+          <h1 className="page-title">Reviews</h1>
+
+          <p className="page-subtitle">{reviews.length} total reviews</p>
+        </div>
       </div>
 
-      {loading ? <div className="loading-screen">Loading reviews...</div> : (
-        <div className="card" style={{ overflowX: "auto" }}>
+      {loading ? (
+        <div className="loading-screen">Loading reviews...</div>
+      ) : (
+        <div className="card reviews-card">
           {reviews.length === 0 ? (
-            <p style={{ color: "var(--text-muted)", padding: "2rem 0", textAlign: "center" }}>No reviews yet.</p>
+            <p className="reviews-empty">No reviews yet.</p>
           ) : (
             <table className="admin-table">
               <thead>
@@ -49,15 +66,33 @@ function Reviews() {
                   <th>Actions</th>
                 </tr>
               </thead>
+
               <tbody>
-                {reviews.map(r => (
+                {reviews.map((r) => (
                   <tr key={r._id}>
-                    <td style={{ fontWeight: 600, fontSize: "0.88rem" }}>{r.user?.name}</td>
-                    <td style={{ fontSize: "0.88rem" }}>{r.hotel?.name}</td>
-                    <td>{renderStars(r.rating)}</td>
-                    <td style={{ maxWidth: "250px", fontSize: "0.85rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.comment}</td>
-                    <td style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>{new Date(r.createdAt).toLocaleDateString("en-IN", { dateStyle: "medium" })}</td>
-                    <td><button className="btn btn-sm btn-danger" onClick={() => deleteReview(r._id)}>Delete</button></td>
+                    <td className="review-user">{r.user?.name}</td>
+
+                    <td className="review-hotel">{r.hotel?.name}</td>
+
+                    <td className="review-stars">{renderStars(r.rating)}</td>
+
+                    <td className="review-comment">{r.comment}</td>
+
+                    <td className="review-date">
+                      {new Date(r.createdAt).toLocaleDateString("en-IN", {
+                        dateStyle: "medium",
+                      })}
+                    </td>
+
+                    <td>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => deleteReview(r._id)}
+                      >
+                        <FaTrash />
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

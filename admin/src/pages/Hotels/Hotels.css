@@ -2,17 +2,17 @@
   overflow-x: auto;
 }
 
-/* empty message */
+/*emptymessage*/
 
 .hotels-empty {
   text-align: center;
 
-  padding: 40px 0;
+  padding: 40px0;
 
   color: #666;
 }
 
-/* hotel info */
+/*hotelinfo*/
 
 .hotel-info {
   display: flex;
@@ -34,7 +34,7 @@
   font-weight: 600;
 }
 
-/* price */
+/*price*/
 
 .hotel-price {
   font-weight: 600;
@@ -42,14 +42,10 @@
   color: #000;
 }
 
-/* rating */
+/*rating*/
 
 .hotel-rating {
-  display: flex;
-
   align-items: center;
-
   gap: 5px;
-
   color: #000;
 }

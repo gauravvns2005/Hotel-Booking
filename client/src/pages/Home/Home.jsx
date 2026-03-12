@@ -27,6 +27,14 @@ const AMENITIES = [
   { icon: <FaPlaneDeparture />, label: "Airport Transfer" }
 ];
 
+const POPULAR_CITIES = [
+  "Delhi",
+  "Mumbai",
+  "Goa",
+  "Manali",
+  "Jaipur"
+];
+
 function Home() {
 
   const { hotels } = useContext(AppContext);
@@ -36,6 +44,10 @@ function Home() {
   const handleSearch = () => {
     if(city.trim()) navigate(`/hotels?city=${city.trim()}`)
     else navigate("/hotels")
+  }
+
+  const searchCity = (name) => {
+    navigate(`/hotels?city=${name}`)
   }
 
   return (
@@ -67,6 +79,47 @@ function Home() {
           <button className="search-btn" onClick={handleSearch}>
             Search
           </button>
+
+        </div>
+
+        {/* POPULAR CITIES */}
+        <div className="popular-cities">
+          <span>Popular:</span>
+
+          {POPULAR_CITIES.map((c)=>(
+            <button
+              key={c}
+              onClick={()=>searchCity(c)}
+            >
+              {c}
+            </button>
+          ))}
+
+        </div>
+
+      </section>
+
+
+      {/* STATS */}
+
+      <section className="stats-section">
+
+        <div className="stats-grid">
+
+          <div className="stat-card">
+            <h3>500+</h3>
+            <p>Hotels Listed</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>10K+</h3>
+            <p>Happy Guests</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>100+</h3>
+            <p>Cities Covered</p>
+          </div>
 
         </div>
 

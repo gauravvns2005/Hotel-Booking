@@ -90,7 +90,7 @@ function Hotels() {
                   <td className="hotel-rating">
                     {h.rating > 0 ? (
                       <>
-                        <FaStar />
+                        <FaStar color="#D4AF37"/> 
                         {Number(h.rating).toFixed(1)}
                       </>
                     ) : (

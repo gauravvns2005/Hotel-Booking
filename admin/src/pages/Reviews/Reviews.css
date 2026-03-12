@@ -29,7 +29,7 @@
 /* stars */
 
 .review-stars {
-  display: flex;
+  /* display: flex; */
 
   gap: 4px;
 }

@@ -4,7 +4,8 @@
   border: 1px solid #e5e5e5;
 
   padding: 20px;
-
+  position: sticky;
+  top: 100px;
   display: flex;
   flex-direction: column;
 

@@ -34,7 +34,7 @@ function Reviews() {
 
   const renderStars = (n) => {
     return [...Array(Math.min(n, 5))].map((_, i) => (
-      <FaStar key={i} className="review-star" />
+      <FaStar color="#F5C518" key={i} className="review-star" />
     ));
   };
 

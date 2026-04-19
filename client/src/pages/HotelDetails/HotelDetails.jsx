@@ -5,9 +5,18 @@ import {
   FaHeart,
   FaRegHeart,
   FaStar,
+  FaStarHalfAlt,
   FaUserFriends,
   FaBed,
+  FaWifi,
+  FaCoffee,
+  FaParking,
+  FaDumbbell,
+  FaSwimmingPool,
+  FaUtensils,
+  FaCheckCircle,
 } from "react-icons/fa";
+
 import API from "../../services/api";
 import { AppContext } from "../../context/AppContext";
 import "./HotelDetails.css";
@@ -27,8 +36,6 @@ function HotelDetails() {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
   const [wishlistAdded, setWishlistAdded] = useState(false);
-  const [reviewLoading, setReviewLoading] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,245 +49,271 @@ function HotelDetails() {
         setHotel(hotelRes.data);
         setRooms(roomRes.data);
         setReviews(reviewRes.data);
-      } catch {}
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     fetchData();
   }, [id]);
 
-  const addWishlist = async () => {
+  // ✅ FIXED Wishlist Toggle
+  const toggleWishlist = async () => {
     if (!user) return navigate("/login");
 
     try {
-      await API.post("/wishlist", { hotel: id });
-      setWishlistAdded(true);
-    } catch {
-      setWishlistAdded(true);
-    }
-  };
-
-  const submitReview = async (e) => {
-    e.preventDefault();
-
-    if (!user) return navigate("/login");
-
-    setReviewLoading(true);
-    setError("");
-
-    try {
-      await API.post("/reviews", {
-        hotel: id,
-        rating: Number(rating),
-        comment,
-      });
-
-      setComment("");
-      setRating(5);
-
-      const res = await API.get(`/reviews/${id}`);
-      setReviews(res.data);
+      if (wishlistAdded) {
+        await API.delete(`/wishlist/${id}`);
+        setWishlistAdded(false);
+      } else {
+        await API.post("/wishlist", { hotel: id });
+        setWishlistAdded(true);
+      }
     } catch (err) {
-      setError(err.response?.data?.message || "Could not submit review");
+      console.log(err);
     }
-
-    setReviewLoading(false);
   };
 
-  if (!hotel) return <div className="loading-screen">Loading hotel...</div>;
+  // ✅ Direct booking
+  const handleBooking = (room) => {
+    if (!user) return navigate("/login");
 
-  const images = hotel.images?.length > 0 ? hotel.images : [FALLBACK_IMG];
+    navigate(`/booking/${room._id}`);
+  };
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<FaStar key={i} />);
+    }
+    if (hasHalfStar) {
+      stars.push(<FaStarHalfAlt key="half" />);
+    }
+
+    return stars;
+  };
+
+  if (!hotel) return <div className="loading-screen">Loading...</div>;
+
+  const images =
+    hotel.images?.length > 0 ? hotel.images : [FALLBACK_IMG];
+
+  const amenities = [
+    { icon: FaWifi, name: "Free WiFi" },
+    { icon: FaCoffee, name: "Breakfast" },
+    { icon: FaParking, name: "Free Parking" },
+    { icon: FaSwimmingPool, name: "Swimming Pool" },
+    { icon: FaDumbbell, name: "Fitness Center" },
+    { icon: FaUtensils, name: "Restaurant" },
+  ];
 
   return (
-    <div className="hotel-details-page page-wrapper">
-      <div className="container">
-        {/* GALLERY */}
+    <div className="hotel-page">
+      {/* HERO */}
+      <div className="hero-section">
+        <div className="hero-overlay"></div>
+        <div className="hero-content">
+          <h1>{hotel.name}</h1>
 
-        <div className="hotel-gallery">
-          <div className="gallery-main">
-            <img
-              src={images[activeImg]}
-              alt={hotel.name}
-              className="gallery-main-img"
-            />
+          <div className="hero-location">
+            <FaMapMarkerAlt />
+            <span>
+              {hotel.city}, {hotel.state}
+            </span>
           </div>
 
-          {images.length > 1 && (
-            <div className="gallery-thumbs">
-              {images.map((img, i) => (
+          <div className="hero-rating">
+            {renderStars(hotel.rating)}
+            <span>{Number(hotel.rating).toFixed(1)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className="main-grid">
+          <div className="left-column">
+            {/* GALLERY */}
+            <div className="gallery-section">
+              <div className="main-image-container">
                 <img
-                  key={i}
-                  src={img}
-                  alt="thumb"
-                  className={`gallery-thumb ${activeImg === i ? "active" : ""}`}
-                  onClick={() => setActiveImg(i)}
+                  src={images[activeImg]}
+                  alt={hotel.name}
                 />
+
+                <button
+                  onClick={toggleWishlist}
+                  className={`wishlist-btn ${
+                    wishlistAdded ? "active" : ""
+                  }`}
+                >
+                  {wishlistAdded ? <FaHeart /> : <FaRegHeart />}
+                </button>
+              </div>
+
+              <div className="thumbnail-strip">
+                {images.map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    className={
+                      activeImg === i ? "active" : ""
+                    }
+                    onClick={() => setActiveImg(i)}
+                    alt=""
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* DESCRIPTION */}
+            <div className="description-section">
+              <h2>About This Hotel</h2>
+              <p>{hotel.description}</p>
+            </div>
+
+            {/* AMENITIES */}
+            <div className="amenities-section">
+              <h2>Amenities</h2>
+              <div className="amenities-grid">
+                {amenities.map((a, i) => (
+                  <div key={i} className="amenity-item">
+                    <a.icon />
+                    <span>{a.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ROOMS */}
+            <div className="rooms-section">
+              <h2>Available Rooms</h2>
+
+              {rooms.length === 0 ? (
+                <div>No Rooms Available</div>
+              ) : (
+                <div className="rooms-list">
+                  {rooms.map((room) => (
+                    <div
+                      key={room._id}
+                      className="room-card"
+                    >
+                      <div className="room-card-left">
+                        <img
+                          src={
+                            room.images?.[0] ||
+                            FALLBACK_IMG
+                          }
+                          alt=""
+                        />
+                      </div>
+
+                      <div className="room-card-middle">
+                        <h3>{room.roomType}</h3>
+
+                        <div className="room-features">
+                          <span>
+                            <FaUserFriends />{" "}
+                            {room.maxGuests} Guests
+                          </span>
+                          <span>
+                            <FaBed />{" "}
+                            {room.totalRooms} Rooms
+                          </span>
+                        </div>
+
+                        <ul>
+                          <li>
+                            <FaCheckCircle /> AC
+                          </li>
+                          <li>
+                            <FaCheckCircle /> Bathroom
+                          </li>
+                          <li>
+                            <FaCheckCircle /> TV
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="room-card-right">
+                        <div className="room-price">
+                          ₹{room.price}
+                        </div>
+                        <div>per night</div>
+
+                        <button
+                          className="book-room-btn"
+                          onClick={() =>
+                            handleBooking(room)
+                          }
+                        >
+                          Book Now
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* REVIEWS */}
+            <div className="reviews-section">
+              <h2>Guest Reviews</h2>
+
+              {user && (
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  await API.post("/reviews", {
+                    hotel: id,
+                    rating: Number(rating),
+                    comment,
+                  });
+
+                  setComment("");
+                  setRating(5);
+
+                  const res = await API.get(`/reviews/${id}`);
+                  setReviews(res.data);
+                }}>
+                  <select
+                    value={rating}
+                    onChange={(e) =>
+                      setRating(e.target.value)
+                    }
+                  >
+                    {[5, 4, 3, 2, 1].map((n) => (
+                      <option key={n}>
+                        {n} Star
+                      </option>
+                    ))}
+                  </select>
+
+                  <textarea
+                    value={comment}
+                    onChange={(e) =>
+                      setComment(e.target.value)
+                    }
+                    placeholder="Write review..."
+                  />
+
+                  <button type="submit">
+                    Submit
+                  </button>
+                </form>
+              )}
+
+              {reviews.map((r) => (
+                <div key={r._id}>
+                  <h4>{r.user?.name || "User"}</h4>
+                  {renderStars(r.rating)}
+                  <p>{r.comment}</p>
+                </div>
               ))}
             </div>
-          )}
-        </div>
-
-        {/* HOTEL INFO */}
-
-        <div className="hotel-info-card">
-          <div className="hotel-info-left">
-            <div className="hotel-info-header">
-              <h1 className="hotel-name">{hotel.name}</h1>
-
-              <button className="wishlist-btn" onClick={addWishlist}>
-                {wishlistAdded ? <FaHeart /> : <FaRegHeart />}
-                Wishlist
-              </button>
-            </div>
-
-            <p className="hotel-location">
-              <FaMapMarkerAlt />
-              {hotel.address}, {hotel.city}, {hotel.state}
-            </p>
-
-            <div className="hotel-rating">
-              <FaStar />
-
-              {Number(hotel.rating).toFixed(1)}
-            </div>
-
-            <p className="hotel-desc">{hotel.description}</p>
-
-            {hotel.amenities?.length > 0 && (
-              <div className="hotel-amenities">
-                <h3>Amenities</h3>
-
-                <div className="amenities-list">
-                  {hotel.amenities.map((a, i) => (
-                    <span key={i} className="amenity-pill">
-                      {a}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="hotel-price-card">
-            <p className="hotel-price-label">Starting from</p>
-
-            <p className="hotel-price">
-              ₹{hotel.pricePerNight}
-              <span>/night</span>
-            </p>
-
-            <button
-              className="book-btn"
-              onClick={() => {
-                if (rooms.length > 0) navigate(`/booking/${rooms[0]._id}`);
-                else alert("No rooms available");
-              }}
-            >
-              Book Now
-            </button>
           </div>
         </div>
-
-        {/* ROOMS */}
-
-        <section className="rooms-section">
-          <h2>Available Rooms</h2>
-
-          <div className="rooms-grid">
-            {rooms.map((room) => (
-              <div key={room._id} className="room-card">
-                <img
-                  src={room.images?.[0] || FALLBACK_IMG}
-                  className="room-img"
-                />
-
-                <div className="room-body">
-                  <h3>{room.roomType}</h3>
-
-                  <div className="room-meta">
-                    <span>
-                      <FaUserFriends /> {room.maxGuests} guests
-                    </span>
-
-                    <span>
-                      <FaBed /> {room.totalRooms} rooms
-                    </span>
-                  </div>
-
-                  <div className="room-footer">
-                    <span className="room-price">₹{room.price}/night</span>
-
-                    <button
-                      className="book-room-btn"
-                      onClick={() => navigate(`/booking/${room._id}`)}
-                    >
-                      Book Room
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* REVIEWS */}
-
-        <section className="reviews-section">
-          <h2>Guest Reviews</h2>
-
-          {user && (
-            <form className="review-form" onSubmit={submitReview}>
-              <div className="form-group">
-                <label>Rating</label>
-
-                <select
-                  className="form-control"
-                  value={rating}
-                  onChange={(e) => setRating(e.target.value)}
-                >
-                  {[5, 4, 3, 2, 1].map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label>Comment</label>
-
-                <textarea
-                  className="form-control"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                />
-              </div>
-
-              <button className="submit-review-btn" type="submit">
-                {reviewLoading ? "Submitting" : "Submit Review"}
-              </button>
-            </form>
-          )}
-
-          <div className="reviews-list">
-            {reviews.map((r) => (
-              <div key={r._id} className="review-card">
-                <div className="review-header">
-                  <div className="review-avatar">{r.user?.name?.charAt(0)}</div>
-
-                  <div>
-                    <p className="review-author">{r.user?.name}</p>
-                  </div>
-
-                  <span className="review-stars">
-                    <FaStar /> {r.rating}
-                  </span>
-                </div>
-
-                <p className="review-comment">{r.comment}</p>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
     </div>
   );

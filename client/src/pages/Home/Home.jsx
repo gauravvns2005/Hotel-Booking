@@ -4,16 +4,15 @@ import { AppContext } from "../../context/AppContext";
 import HotelCard from "../../components/HotelCard/HotelCard";
 import "./Home.css";
 
-import { 
-FaSwimmingPool,
-FaDumbbell,
-FaUtensils,
-FaParking,
-FaWifi,
-FaSpa,
-FaPlaneDeparture,
-FaDice,
-FaMapMarkerAlt
+import {
+  FaSwimmingPool,
+  FaDumbbell,
+  FaUtensils,
+  FaParking,
+  FaWifi,
+  FaSpa,
+  FaPlaneDeparture,
+  FaDice,
 } from "react-icons/fa";
 
 const AMENITIES = [
@@ -24,86 +23,73 @@ const AMENITIES = [
   { icon: <FaWifi />, label: "Free WiFi" },
   { icon: <FaSpa />, label: "Spa & Wellness" },
   { icon: <FaDice />, label: "Casino Lounge" },
-  { icon: <FaPlaneDeparture />, label: "Airport Transfer" }
-];
-
-const POPULAR_CITIES = [
-  "Delhi",
-  "Mumbai",
-  "Goa",
-  "Manali",
-  "Jaipur"
+  { icon: <FaPlaneDeparture />, label: "Airport Transfer" },
 ];
 
 function Home() {
-
   const { hotels } = useContext(AppContext);
-  const [city,setCity] = useState("");
+  const [city, setCity] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    if(city.trim()) navigate(`/hotels?city=${city.trim()}`)
-    else navigate("/hotels")
-  }
-
-  const searchCity = (name) => {
-    navigate(`/hotels?city=${name}`)
-  }
+    if (city.trim()) navigate(`/hotels?city=${city}`);
+    else navigate("/hotels");
+  };
 
   return (
     <div className="home">
 
       {/* HERO */}
-      <section className="hero">
+      <section className="hero-modern">
 
-        <h1 className="hero-title">
-          Find Your Perfect Hotel
-        </h1>
+        {/* LEFT */}
+        <div className="hero-left">
 
-        <p className="hero-subtitle">
-          Discover the best hotels across India.
-        </p>
+          <h1>
+            You Have A Destination,<br />
+            We Have A Place
+          </h1>
 
-        <div className="hero-search">
+          <p>
+            Discover premium hotels across India with comfort, trust and luxury.
+          </p>
 
-          <div className="search-input-wrap">
-            <FaMapMarkerAlt className="search-icon"/>
-            <input
-              placeholder="Search city"
-              value={city}
-              onChange={(e)=>setCity(e.target.value)}
-              onKeyDown={(e)=> e.key==="Enter" && handleSearch()}
-            />
+          <div className="hero-search-modern">
+
+            <div className="field">
+              <span>City</span>
+              <input
+                placeholder="Enter city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <span>Check In</span>
+              <input type="date" />
+            </div>
+
+            <div className="field">
+              <span>Check Out</span>
+              <input type="date" />
+            </div>
+
+            <button onClick={handleSearch}>
+              Search
+            </button>
+
           </div>
 
-          <button className="search-btn" onClick={handleSearch}>
-            Search
-          </button>
-
         </div>
 
-        {/* POPULAR CITIES */}
-        <div className="popular-cities">
-          <span>Popular:</span>
-
-          {POPULAR_CITIES.map((c)=>(
-            <button
-              key={c}
-              onClick={()=>searchCity(c)}
-            >
-              {c}
-            </button>
-          ))}
-
-        </div>
+        {/* RIGHT IMAGE */}
+        <div className="hero-right"></div>
 
       </section>
 
-
       {/* STATS */}
-
       <section className="stats-section">
-
         <div className="stats-grid">
 
           <div className="stat-card">
@@ -122,12 +108,9 @@ function Home() {
           </div>
 
         </div>
-
       </section>
 
-
       {/* HOTELS */}
-
       <section className="featured-section">
 
         <h2 className="section-title">Featured Hotels</h2>
@@ -136,36 +119,32 @@ function Home() {
           <p className="no-data">No Hotels Available</p>
         ) : (
           <div className="hotels-grid">
-            {hotels.slice(0,6).map((hotel)=>(
-              <HotelCard key={hotel._id} hotel={hotel}/>
+            {hotels.slice(0, 12).map((hotel) => (
+              <HotelCard key={hotel._id} hotel={hotel} />
             ))}
           </div>
         )}
 
       </section>
 
-
       {/* AMENITIES */}
-
       <section className="amenities-section">
 
         <h2 className="section-title">Amenities</h2>
 
         <div className="amenities-grid">
-
-          {AMENITIES.map((a)=>(
+          {AMENITIES.map((a) => (
             <div className="amenity-card" key={a.label}>
               <div className="amenity-icon">{a.icon}</div>
               <p>{a.label}</p>
             </div>
           ))}
-
         </div>
 
       </section>
 
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

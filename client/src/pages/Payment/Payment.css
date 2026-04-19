@@ -1,64 +1,795 @@
+/* Payment.css - Professional Black & White Design */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Payment Page */
 .payment-page {
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  padding: 2rem;
+}
+
+.payment-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Loading State */
+.payment-loading {
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 70px);
+  gap: 1rem;
+  background-color: #f8f8f8;
 }
 
-.payment-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2.5rem;
-  width: 100%;
-  max-width: 480px;
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #e5e5e5;
+  border-top-color: #000;
+  animation: spin 1s linear infinite;
 }
 
-.payment-header {
-  text-align: center;
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.payment-loading p {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+/* Header Section */
+.payment-header-section {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 2rem;
   margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
+  position: relative;
 }
 
-.payment-icon { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
-.payment-header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
-.payment-header p { color: var(--text-muted); font-size: 0.9rem; }
-
-.payment-details { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
-
-.payment-row {
+.back-button {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  background: none;
+  border: 1px solid #e5e5e5;
+  padding: 0.5rem 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-size: 0.9rem;
-}
-.payment-row span:first-child { color: var(--text-muted); }
-.payment-row span:last-child { font-weight: 500; }
-
-.payment-total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  border-top: 1px solid var(--border);
-  margin-top: 0.25rem;
-  font-weight: 700;
-  font-size: 1rem;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  color: #000;
 }
 
-.payment-total { font-size: 1.4rem; color: var(--primary-light); }
-
-.pay-btn {
-  width: 100%;
-  justify-content: center;
-  padding: 1rem;
-  font-size: 1.05rem;
-  margin-bottom: 1rem;
+.back-button:hover {
+  border-color: #000;
+  background-color: #fafafa;
 }
 
-.payment-secure {
+.payment-header-content {
   text-align: center;
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  padding: 1rem 0;
+}
+
+.payment-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e5e5;
+  background-color: #fafafa;
+}
+
+.payment-icon-wrapper svg {
+  font-size: 2.5rem;
+  color: #000;
+}
+
+.payment-header-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.payment-header-content p {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Error Alert */
+.error-alert {
+  background-color: #fff;
+  border: 1px solid #000;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #000;
+  font-size: 0.875rem;
+}
+
+/* Main Grid */
+.payment-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Left Column */
+.payment-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Summary Card */
+.summary-card {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 1.5rem;
+}
+
+.summary-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #000;
+}
+
+.summary-card-header h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.secure-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #fafafa;
+  border: 1px solid #e5e5e5;
+  color: #000;
+}
+
+/* Hotel Summary */
+.hotel-summary {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.hotel-summary-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e5e5;
+  background-color: #fafafa;
+}
+
+.hotel-summary-icon svg {
+  font-size: 1.25rem;
+  color: #000;
+}
+
+.hotel-summary-details h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 0.25rem;
+}
+
+.hotel-summary-details p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* Room Summary */
+.room-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.room-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: #fafafa;
+  border: 1px solid #e5e5e5;
+}
+
+.room-summary-item svg {
+  font-size: 1rem;
+  color: #000;
+}
+
+.room-summary-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.room-summary-item span {
+  font-size: 0.6875rem;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.room-summary-item strong {
+  font-size: 0.8125rem;
+  color: #000;
+}
+
+/* Date Summary */
+.date-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #fafafa;
+  border: 1px solid #e5e5e5;
+}
+
+.date-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.date-item svg {
+  font-size: 1rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.date-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.date-item span {
+  font-size: 0.6875rem;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.date-item strong {
+  font-size: 0.75rem;
+  color: #000;
+}
+
+.date-arrow {
+  font-size: 1.25rem;
+  color: #999;
+}
+
+.night-count {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  font-size: 0.875rem;
+}
+
+.night-count strong {
+  font-weight: 700;
+  color: #000;
+}
+
+/* Payment Methods Card */
+.payment-methods-card {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 1.5rem;
+}
+
+.payment-methods-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.payment-method:hover {
+  border-color: #000;
+}
+
+.payment-method.active {
+  border-color: #000;
+  background-color: #fafafa;
+}
+
+.payment-method.active .check-icon {
+  margin-left: auto;
+  color: #000;
+}
+
+.payment-method svg,
+.upi-icon,
+.netbanking-icon,
+.wallet-icon {
+  font-size: 1rem;
+  color: #000;
+}
+
+.upi-icon,
+.netbanking-icon,
+.wallet-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.payment-method span {
+  font-size: 0.875rem;
+  color: #333;
+}
+
+.check-icon {
+  margin-left: auto;
+}
+
+/* Right Column */
+.payment-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+/* Payment Details Card */
+.payment-details-card {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 1.5rem;
+}
+
+.payment-details-card h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #000;
+}
+
+.price-breakdown {
+  margin-bottom: 1.5rem;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.price-row span:first-child {
+  color: #666;
+}
+
+.price-row span:last-child {
+  color: #333;
+  font-weight: 500;
+}
+
+.price-divider {
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 1rem 0;
+}
+
+.price-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.total-amount {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1.5rem;
+}
+
+/* Payment Security */
+.payment-security {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: #fafafa;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 1.5rem;
+}
+
+.payment-security svg {
+  font-size: 1.25rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.payment-security strong {
+  font-size: 0.875rem;
+  color: #000;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.payment-security p {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* Pay Now Button */
+.pay-now-button {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.pay-now-button:hover:not(:disabled) {
+  background-color: #fff;
+  color: #000;
+}
+
+.pay-now-button:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Payment Footer */
+.payment-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.payment-card-icon {
+  height: 20px;
+  object-fit: contain;
+  opacity: 0.6;
+}
+
+.payment-footer span {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* Policy Card */
+.policy-card {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 1rem;
+}
+
+.policy-card h4 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.policy-card p {
+  font-size: 0.75rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+
+/* Large Screens (1200px - 1399px) */
+@media (max-width: 1399px) {
+  .payment-container {
+    max-width: 1140px;
+  }
+}
+
+/* Medium-Large (992px - 1199px) */
+@media (max-width: 1199px) {
+  .payment-container {
+    max-width: 960px;
+  }
+  
+  .payment-main-grid {
+    gap: 1.5rem;
+  }
+  
+  .payment-header-content h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Tablet (768px - 991px) */
+@media (max-width: 991px) {
+  .payment-page {
+    padding: 1.5rem;
+  }
+  
+  .payment-main-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .payment-right {
+    position: static;
+  }
+  
+  .payment-header-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .date-summary {
+    flex-direction: column;
+  }
+  
+  .date-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+/* Mobile Landscape (576px - 767px) */
+@media (max-width: 767px) {
+  .payment-page {
+    padding: 1rem;
+  }
+  
+  .payment-header-section {
+    padding: 1.5rem;
+  }
+  
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  .payment-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .payment-icon-wrapper svg {
+    font-size: 1.75rem;
+  }
+  
+  .payment-header-content h1 {
+    font-size: 1.25rem;
+  }
+  
+  .room-summary {
+    grid-template-columns: 1fr;
+  }
+  
+  .summary-card,
+  .payment-methods-card,
+  .payment-details-card {
+    padding: 1rem;
+  }
+  
+  .total-amount {
+    font-size: 1.25rem;
+  }
+  
+  .pay-now-button {
+    padding: 0.875rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile Portrait (375px - 575px) */
+@media (max-width: 575px) {
+  .payment-page {
+    padding: 0.75rem;
+  }
+  
+  .payment-header-section {
+    padding: 1rem;
+  }
+  
+  .payment-icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .payment-icon-wrapper svg {
+    font-size: 1.5rem;
+  }
+  
+  .payment-header-content h1 {
+    font-size: 1.125rem;
+  }
+  
+  .payment-header-content p {
+    font-size: 0.75rem;
+  }
+  
+  .error-alert {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  .hotel-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hotel-summary-icon {
+    margin: 0 auto;
+  }
+  
+  .hotel-summary-details p {
+    justify-content: center;
+  }
+  
+  .room-summary-item {
+    padding: 0.625rem;
+  }
+  
+  .date-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .price-total {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .payment-security {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .payment-footer {
+    flex-wrap: wrap;
+  }
+}
+
+/* Small Mobile (320px - 374px) */
+@media (max-width: 374px) {
+  .payment-page {
+    padding: 0.5rem;
+  }
+  
+  .payment-header-content h1 {
+    font-size: 1rem;
+  }
+  
+  .room-summary-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .price-row {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+  }
+  
+  .price-total {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .payment-page {
+    background-color: #fff;
+    padding: 0;
+  }
+  
+  .back-button,
+  .pay-now-button,
+  .payment-methods-card,
+  .payment-footer {
+    display: none;
+  }
+  
+  .payment-main-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .payment-right {
+    position: static;
+  }
+  
+  .summary-card,
+  .payment-details-card {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
 }

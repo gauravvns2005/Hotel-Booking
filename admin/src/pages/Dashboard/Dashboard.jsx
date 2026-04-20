@@ -60,7 +60,7 @@ function Dashboard() {
     if (payStatus === "paid")
       return <span className="badge badge-success">Paid</span>;
 
-    return <span className="badge badge-warning">Pending"</span>;
+    return <span className="badge badge-warning">Pending</span>;
   };
 
   return (
@@ -99,7 +99,7 @@ function Dashboard() {
         <div className="dashboard-table-header">
           <h2 className="dashboard-table-title">Recent Bookings</h2>
 
-          <Link to="/bookings" className="btn btn-sm btn-secondary">
+          <Link to="/bookings" className="btn btn-sm btn-secondary view-btn">
             View All
           </Link>
         </div>

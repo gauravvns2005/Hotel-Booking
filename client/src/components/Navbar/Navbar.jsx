@@ -28,6 +28,9 @@ function Navbar() {
         {/* LINKS */}
 
         <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            Home
+          </Link>
           <Link to="/hotels" onClick={() => setMenuOpen(false)}>
             Hotels
           </Link>
@@ -40,6 +43,12 @@ function Navbar() {
 
               <Link to="/dashboard" onClick={() => setMenuOpen(false)}>
                 My Bookings
+              </Link>
+              <Link to="/about" onClick={() => setMenuOpen(false)}>
+                About
+              </Link>
+              <Link to="/contact" onClick={() => setMenuOpen(false)}>
+                Contact
               </Link>
             </>
           )}

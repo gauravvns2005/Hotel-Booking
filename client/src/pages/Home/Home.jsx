@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import HotelCard from "../../components/HotelCard/HotelCard";
+import { ReactTyped } from "react-typed";
 import "./Home.css";
 
 import {
@@ -38,16 +39,26 @@ function Home() {
 
   return (
     <div className="home">
-
       {/* HERO */}
       <section className="hero-modern">
-
         {/* LEFT */}
         <div className="hero-left">
-
           <h1>
-            You Have A Destination,<br />
-            We Have A Place
+            Find Your Perfect Stay
+            <br />
+            <span>
+              <ReactTyped
+              strings={[
+                "Luxury hotels across India",
+                "Comfort that feels like home",
+                "Best prices, guaranteed",
+                "Book stays in seconds",
+              ]}
+              typeSpeed={50}
+              backSpeed={30}
+              loop
+            />
+            </span>
           </h1>
 
           <p>
@@ -55,7 +66,6 @@ function Home() {
           </p>
 
           <div className="hero-search-modern">
-
             <div className="field">
               <span>City</span>
               <input
@@ -75,23 +85,17 @@ function Home() {
               <input type="date" />
             </div>
 
-            <button onClick={handleSearch}>
-              Search
-            </button>
-
+            <button onClick={handleSearch}>Search</button>
           </div>
-
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="hero-right"></div>
-
+        {/* <div className="hero-right"></div> */}
       </section>
 
       {/* STATS */}
       <section className="stats-section">
         <div className="stats-grid">
-
           <div className="stat-card">
             <h3>500+</h3>
             <p>Hotels Listed</p>
@@ -106,13 +110,11 @@ function Home() {
             <h3>100+</h3>
             <p>Cities Covered</p>
           </div>
-
         </div>
       </section>
 
       {/* HOTELS */}
       <section className="featured-section">
-
         <h2 className="section-title">Featured Hotels</h2>
 
         {hotels.length === 0 ? (
@@ -124,12 +126,10 @@ function Home() {
             ))}
           </div>
         )}
-
       </section>
 
       {/* AMENITIES */}
       <section className="amenities-section">
-
         <h2 className="section-title">Amenities</h2>
 
         <div className="amenities-grid">
@@ -140,9 +140,7 @@ function Home() {
             </div>
           ))}
         </div>
-
       </section>
-
     </div>
   );
 }

@@ -67,3 +67,11 @@
 
   color: #000;
 }
+
+.view-btn{
+  transition: all 0.3s ease;
+}
+
+.view-btn:hover{
+  color: white;
+}

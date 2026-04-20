@@ -98,7 +98,7 @@ function Hotels() {
           </div>
           
           <div className="header-right">
-            <div className="sort-container">
+            {/* <div className="sort-container">
               <label>Sort by:</label>
               <select 
                 value={sortBy} 
@@ -110,7 +110,7 @@ function Hotels() {
                 <option value="-rating">Rating: High to Low</option>
                 <option value="name">Name: A to Z</option>
               </select>
-            </div>
+            </div> */}
             
             <button 
               className="mobile-filter-toggle"

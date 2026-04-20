@@ -1,0 +1,96 @@
+.about-container{
+    width: 100%;
+}
+
+.about-header{
+    width: 100%;
+    height: 34vh;
+    background: url('../../assets/hero2.jpg') no-repeat center/cover;
+    position: relative;
+}
+
+.about-header::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.about-header h2{
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    color: white;
+    font-size: 70px;
+    animation: name duration timing-function delay iteration-count direction fill-mode;
+    /* opacity: 0; */
+    animation: fadeIn 0.8s ease-in forwards;
+}
+
+@keyframes fadeIn{
+    0%{
+
+        opacity:0;
+        transform: translateY(20px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.about-content{
+    padding: 0px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-top: 100px;
+    animation: fadeIn1 0.72s ease-in forwards;
+    opacity: 0;
+
+}
+
+.about-text{
+    max-width: 1000px;
+}
+
+.about-text h2{
+    font-size: 50px;
+    padding-left: 20px;
+}
+
+.about-text p{
+    border-left: 4px solid #494949;
+    /* border-radius: 20px; */
+    padding-left: 20px;
+}
+
+.about-img{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.about-img img{
+    width: 100%;
+    object-fit: cover;
+    height: 590px;
+    
+}
+
+@keyframes fadeIn1{
+    0%{
+
+        opacity:0;
+        transform: translateX(120px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

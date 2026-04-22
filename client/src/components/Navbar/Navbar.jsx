@@ -34,6 +34,7 @@ function Navbar() {
           <Link to="/hotels" onClick={() => setMenuOpen(false)}>
             Hotels
           </Link>
+          
 
           {user && (
             <>
@@ -44,14 +45,15 @@ function Navbar() {
               <Link to="/dashboard" onClick={() => setMenuOpen(false)}>
                 My Bookings
               </Link>
-              <Link to="/about" onClick={() => setMenuOpen(false)}>
+              
+            </>
+          )}
+          <Link to="/about" onClick={() => setMenuOpen(false)}>
                 About
               </Link>
               <Link to="/contact" onClick={() => setMenuOpen(false)}>
                 Contact
               </Link>
-            </>
-          )}
         </div>
 
         {/* ACTIONS */}
@@ -89,8 +91,11 @@ function Navbar() {
 
       {/* MOBILE MENU */}
 
-      {menuOpen && (
+      {/* {menuOpen && (
         <div className="mobile-menu">
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            Home
+          </Link>
           <Link to="/hotels" onClick={() => setMenuOpen(false)}>
             Hotels
           </Link>
@@ -120,8 +125,61 @@ function Navbar() {
               </Link>
             </>
           )}
+          <Link to="/about" onClick={() => setMenuOpen(false)}>
+                About
+              </Link>
+              <Link to="/contact" onClick={() => setMenuOpen(false)}>
+                Contact
+              </Link>
         </div>
-      )}
+      )} */}
+
+      {menuOpen && (
+  <div className="mobile-menu">
+    <Link to="/hotels" onClick={() => setMenuOpen(false)}>
+      Hotels
+    </Link>
+
+    {/* USER BASED LINKS */}
+    {user ? (
+      <>
+        <Link to="/wishlist" onClick={() => setMenuOpen(false)}>
+          Wishlist
+        </Link>
+
+        <Link to="/dashboard" onClick={() => setMenuOpen(false)}>
+          My Bookings
+        </Link>
+      </>
+    ) : (
+      <>
+        <Link to="/login" onClick={() => setMenuOpen(false)}>
+          Login
+        </Link>
+
+        <Link to="/register" onClick={() => setMenuOpen(false)}>
+          Register
+        </Link>
+      </>
+    )}
+
+    {/* ALWAYS VISIBLE */}
+    <Link to="/about" onClick={() => setMenuOpen(false)}>
+      About
+    </Link>
+
+    <Link to="/contact" onClick={() => setMenuOpen(false)}>
+      Contact
+    </Link>
+
+    {/* ONLY WHEN LOGGED IN (LAST POSITION) */}
+    {user && (
+      <button className="mobile-logout" onClick={handleLogout}>
+        Logout
+      </button>
+    )}
+  </div>
+)}
     </nav>
   );
 }

@@ -58,17 +58,17 @@ function Login() {
             </div>
 
             <div className="brand-stats">
-              <div className="stat-item">
-                <div className="stat-number">500+</div>
-                <div className="stat-label">Hotels</div>
+              <div className="stat-item" >
+                <div className="stat-number"  style={{color: "white"}}>500+</div>
+                <div className="stat-label" style={{color: "white"}}>Hotels</div>
               </div>
               <div className="stat-item">
-                <div className="stat-number">50k+</div>
-                <div className="stat-label">Happy Guests</div>
+                <div className="stat-number" style={{color: "white"}}>50k+</div>
+                <div className="stat-label" style={{color: "white"}}>Happy Guests</div>
               </div>
               <div className="stat-item">
-                <div className="stat-number">24/7</div>
-                <div className="stat-label">Support</div>
+                <div className="stat-number" style={{color: "white"}}>24/7</div>
+                <div className="stat-label" style={{color: "white"}}>Support</div>
               </div>
             </div>
 
